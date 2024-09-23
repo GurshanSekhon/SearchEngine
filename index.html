@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: whitesmoke;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -18,69 +18,82 @@
         }
 
         h1 {
-            color: black;
-            margin-bottom: 20px; 
+            color: #333;
+            margin-bottom: 30px; 
+            font-size: 2.5rem;
+            text-align: center;
         }
 
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            width: 100%; 
-        }
-
-        #searchInput {
+        input[type="text"] {
             width: 70%;
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 15px;
+            border: 2px solid #ccc;
             border-radius: 25px;
             font-size: 16px;
+            transition: border-color 0.3s;
         }
 
-        #searchButton {
-            padding: 10px 15px;
+        input[type="text"]:focus {
+            border-color: #d76363;
+            outline: none;
+        }
+
+        button {
+            padding: 15px 20px;
             border: none;
             border-radius: 25px;
-            background-color: rgb(219, 103, 103);
+            background-color: #d76363;
             color: white;
             cursor: pointer;
             margin-left: 10px;
             font-size: 16px;
+            transition: background-color 0.3s;
         }
 
-        .history-container {
-            text-align: center;
-            width: 100%;
+        button:hover {
+            background-color: #c05252;
         }
 
         h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: black;
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+            color: #333;
         }
 
-        #searchHistory {
+        ul {
             list-style-type: none;
             padding: 0;
             margin: 0 auto;
             max-width: 400px;
+            width: 100%;
         }
 
-        #searchHistory li {
-            background: #e9ecef;
-            padding: 10px;
-            margin-bottom: 5px;
+        li {
+            background: #e1e1e1;
+            padding: 12px;
+            margin-bottom: 10px;
             border-radius: 4px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        li:hover {
+            background: #d1d1d1;
         }
 
         #clearHistoryButton {
             padding: 10px 15px;
             border: none;
             border-radius: 25px;
-            background-color: rgb(219, 103, 103);
+            background-color: #d76363;
             color: white;
             cursor: pointer;
             margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #clearHistoryButton:hover {
+            background-color: #c05252;
         }
 
         footer {
@@ -88,21 +101,19 @@
             padding: 10px;
             font-size: 14px;
             color: #666;
-            margin-top: 20px; /* Added margin for spacing */
+            margin-top: 20px; 
         }
     </style>
 </head>
 <body>
     <h1>SearchStream</h1>
-    <div class="search-container">
+    <div>
         <input type="text" id="searchInput" placeholder="Search....">
         <button id="searchButton">Search</button>
     </div>
-    <div class="history-container">
-        <h2>Search History</h2>
-        <ul id="searchHistory"></ul>
-        <button id="clearHistoryButton">Clear Search</button>
-    </div>
+    <h2>Search History</h2>
+    <ul id="searchHistory"></ul>
+    <button id="clearHistoryButton">Clear Search</button>
 
     <script>
         const searchButton = document.getElementById('searchButton');
@@ -144,6 +155,7 @@
         loadSearchHistory();
     </script>
     <footer>
+        &copy; 2024 SearchStream
     </footer>
 </body>
 </html>

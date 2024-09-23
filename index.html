@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: whitesmoke;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 20px; 
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%; 
+        }
+
+        #searchInput {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 16px;
+        }
+
+        #searchButton {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgb(219, 103, 103);
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+        .history-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        #searchHistory {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        #searchHistory li {
+            background: #e9ecef;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        #clearHistoryButton {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgb(219, 103, 103);
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px; /* Added margin for spacing */
+        }
+    </style>
+</head>
+<body>
+    <h1>SearchStream</h1>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search....">
+        <button id="searchButton">Search</button>
+    </div>
+    <div class="history-container">
+        <h2>Search History</h2>
+        <ul id="searchHistory"></ul>
+        <button id="clearHistoryButton">Clear Search</button>
+    </div>
+
+    <script>
+        const searchButton = document.getElementById('searchButton');
+        const searchInput = document.getElementById('searchInput');
+        const searchHistoryList = document.getElementById('searchHistory');
+        const clearHistoryButton = document.getElementById('clearHistoryButton');
+
+        function loadSearchHistory() {
+            const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            history.forEach(term => addSearchToHistory(term));
+        }
+
+        function saveSearchHistory(history) {
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+        }
+
+        function addSearchToHistory(term) {
+            const li = document.createElement('li');
+            li.textContent = term;
+            searchHistoryList.appendChild(li);
+        }
+
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+                history.push(searchTerm);
+                saveSearchHistory(history);
+                addSearchToHistory(searchTerm);
+                searchInput.value = ''; 
+            }
+        });
+
+        clearHistoryButton.addEventListener('click', () => {
+            searchHistoryList.innerHTML = ''; 
+            localStorage.removeItem('searchHistory'); 
+        });
+
+        loadSearchHistory();
+    </script>
+    <footer>
+    </footer>
+</body>
+</html>
